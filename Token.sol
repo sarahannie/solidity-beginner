@@ -17,37 +17,29 @@ pragma solidity 0.8.18;
 
 contract MyToken {
 
-    // public variables here
-    string public tknName;
-    string public tknAbbrv;
-    uint256 public totalSupply;
+  //Public variable here
+    string public tknName = "Sarah Token";
+    string public tknAbbrv = "SAH";
+    uint public totalSupply;
 
-    // mapping variable here
-    mapping(address => uint256) public balances;
+   //mapping varible here
+    mapping(address => uint) public balances;
 
-    constructor() {
-        tknName = "Annie Token";
-        tknAbbrv = "ATN";
-    }
 
     // mint function
-     function mint(address _receiver, uint256 _mintAmount) public {
-        // Make sure the address is valid
-        require(_receiver != address(0), "Invalid address");
-        // Increase total supply
-        totalSupply += _mintAmount;
-        // Increase the balance of the receiver
-        balances[_receiver] += _mintAmount;
+     function mint(address _address, uint _value) public {
+        totalSupply += _value;
+       
+        balances[_address] += _value;
     }
 
     // burn function
-    function burn(uint256 _burnAmount) public {
-        // Make sure the function caller has sufficient balance
-        require(balances[msg.sender] >= _burnAmount, "Insufficient balance");
-        // Decrease the total supply
-        totalSupply -= _burnAmount;
-        // Decrease the balance of the function caller
-        balances[msg.sender] -= _burnAmount;
+    function burn(address _address, uint _value) public {
+        if( balances[_address] >= _value){
+        totalSupply -= _value;
+        balances[_address] -= _value;
+        }
+        
     }
 
 }
